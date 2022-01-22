@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.koreait.blog.repository.BoardRepository"> 
+
+	<select id="selectBoardList" parameterType="Map" resultType="Board">
+		SELECT
+			BNO, CATE_CD, TITLE, WRITER, CONTENT, TAG, VIEW_CNT, REGDATE
+		FROM
+			CH_BOARD
+			<trim prefix="WHERE" prefixOverrides="AND|OR">
+				<if test="searchType=='title' and query != null and query != ''">
+					AND TITLE LIKE CONCAT('%', #{query}, '%')
+				</if>
+				<if test="searchType=='content' and query != null and query != ''">
+					AND CONTENT LIKE CONCAT('%', #{query}, '%')
+				</if>
+				<if test="searchType=='writer' and query != null and query != ''">
+					AND WRITER LIKE CONCAT('%', #{query}, '%')
+				</if>
+			</trim>
+		LIMIT #{startList}, #{listSize}
+	</select>
+	
+	<select id="selectBoardListCnt" resultType="int">
+		SELECT
+			COUNT(*) AS LISTCNT
+		  FROM CH_BOARD
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="query != null and query != '' ">
+				<if test="searchType=='title'">
+				AND TITLE like CONCAT('%', #{query}, '%')
+				</if>
+				<if test="searchType=='content'">
+				AND CONTENT like CONCAT('%', #{query}, '%')
+				</if>
+				<if test="searchType=='writer'">
+				AND WRITER like CONCAT('%', #{query}, '%')
+			</if>
+     	 </if>
+		</trim>
+	</select>
+	
+	<select id="selectBoardBybno" resultType="Board" parameterType="Board">
+		SELECT BNO, CATE_CD, TITLE, WRITER, CONTENT, TAG, VIEW_CNT, REGDATE
+		  FROM CH_BOARD
+		 WHERE BNO = #{bno} 
+	</select>
+	
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO CH_BOARD (CATE_CD, TITLE, WRITER, CONTENT, TAG, VIEW_CNT, REGDATE)
+		VALUES ( #{cateCd}, #{title}, #{writer}, #{content}, #{tag}, 0, now() )
+	</insert>
+	
+	<update id="updateBoard" parameterType="Board">
+		UPDATE CH_BOARD
+		   SET CATE_CD = #{cateCd, jdbcType=NULL}, TITLE = #{title}, CONTENT = #{content}, TAG = #{tag}, REGDATE = NO
+		 WHERE BNO = #{bno}  	
+	</update>
+	
+	<delete id="deleteBoard" parameterType="Long">
+		DELETE FROM CH_BOARD
+		 WHERE BNO = #{bno}
+	</delete>
+	
+	<update id="updateViewCnt">
+		UPDATE CH_BOARD
+		   SET VIEW_CNT = VIEW_CNT + 1
+		 WHERE BNO = #{bno}  
+	</update>
+			
+</mapper>
