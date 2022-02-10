@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 <title>board</title>
@@ -19,6 +19,8 @@
 		fnBoardUpdate();
 		fnBoardDelete();
 		fnReplyList();
+		fnReplyInsert();
+		fnReplyModify();
 	});
 	
 	// 목록으로 이동
@@ -49,6 +51,7 @@
 		});
 	}
 	
+	// 댓글 리스트
 	function fnReplyList(){
 		var url = "${pageContext.request.contextPath}/restBoard/getReplyList";
 		var paramData = {"bno" : "${boardDetail.bno}"};
@@ -60,20 +63,20 @@
 			success: function(result) {
 				var htmls = "";
 					if(result.length < 1) {
-						htmls.push("등록된 댓글이 없습니다.");
+						htmls = "등록된 댓글이 없습니다.";
 					} else {
 						$(result).each(function(){
 							htmls += '<div class="media text-muted pt-3" id="rno' + this.rno + '">';
 						       htmls += '<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder:32x32">';
 							   htmls += '<rect width="100%" height="100%" fill="#007bff"></rect>';
 							   htmls += '<text x="50%" fill="#007bff" dy=".3em">32x32</text>';
-							   htmls += '</svg'>;
+							   htmls += '</svg>';
 							   htmls += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
 		                       htmls += '<span class="d-block">';
 			                   htmls += '<strong class="text-gray-dark">' + this.writer + '</strong>';
 			                   htmls += '<span style="padding-left: 7px; font-size: 9pt">';
-			                   htmls += '<a href="javascript:void(0)" onclick="fn_editReply(' + this.rno + ', \'' + this.writer + '\', \'' + this.content + '\' )" style="padding-right:5px">수정</a>';
-			                   htmls += '<a href="javascript:void(0)" onclick="fn_deleteReply(' + this.rno + ')" >삭제</a>';
+			                   htmls += '<a href="javascript:void(0)" onclick="fnReplyModify(' + this.rno + ', \'' + this.writer + '\', \'' + this.content + '\' )" style="padding-right:5px">수정</a>';
+			                   htmls += '<a href="javascript:void(0)" onclick="fnReplyDelete(' + this.rno + ')" >삭제</a>';
 			                   htmls += '</span>';
 			                   htmls += '</span>';
 			                   htmls += this.content;
@@ -81,10 +84,111 @@
 			                   htmls += '</div>';
 					});
 				}
-				${"#replyList"}.html(htmls);	
+				$('#replyList').html(htmls);	
 			}
 		});
 	} // end fnReplyList
+	
+	// 댓글 작성
+	function fnReplyInsert(){
+		$('#insert_reply_btn').click(function(){
+			var replyContent = $('#content').val();
+			var replyWriter = $('#writer').val();
+			
+			var paramData = JSON.stringify({"content": replyContent, 
+				"writer": replyWriter, 
+				"bno":'${boardDetail.bno}'
+			});
+			
+			var headers = {"Content-Type" : "application/json", 
+					"X-HTTP-Method-Override" : "POST"};
+			$.ajax({
+				url: "${pageContext.request.contextPath}/restBoard/saveReply",
+				headers: headers,
+				data: paramData,
+				type: 'post',
+				dataType: 'text',
+				success: function(result){
+					fnReplyList();
+					$('#content').val('');
+					$('#writer').val('');
+				}
+				, error: function(error){
+					console.log("에러 : " + error);
+				}
+			})
+		});
+	} // end fnReplyInsert
+	
+	// 댓글 수정
+	function fnReplyModify(rno, writer, content){
+		var htmls = "";
+		htmls += '<div class="media text-muted pt-3" id="rno' + this.rno + '">';
+		htmls += '<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder:32x32">';
+		htmls += '<title>Placeholder</title>';
+		htmls += '<rect width="100%" height="100%" fill="#007bff"></rect>';
+		htmls += '<text x="50%" fill="#007bff" dy=".3em">32x32</text>';
+		htmls += '</svg>';
+		htmls += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+		htmls += '<span class="d-block">';
+		htmls += '<strong class="text-gray-dark">' + writer + '</strong>';
+		htmls += '<span style="padding-left: 7px; font-size: 9pt">';
+		htmls += '<a href="javascript:void(0)" onclick="fnReplyUpdate(' + rno + ', \'' + writer + '\')" style="padding-right:5px">저장</a>';
+		htmls += '<a href="javascript:void(0)" onClick="fnReplyList()">취소<a>';
+		htmls += '</span>';
+		htmls += '</span>';		
+		htmls += '<textarea name="modifyContent" id="modifyContent" class="form-control" rows="3">';
+		htmls += content;
+		htmls += '</textarea>';
+		htmls += '</p>';
+		htmls += '</div>';
+		$('#rno' + rno).replaceWith(htmls);
+		$('#rno' + rno + ' #modifyContent').focus();
+	} // end fnReplyModify
+	
+	// 댓글 수정등록
+	function fnReplyUpdate(rno, writer){
+		var replyModifyContent = $('#modifyContent').val();
+		
+		var paramData = JSON.stringify({"content": replyModifyContent, 
+			"rno": rno
+		});
+		
+		var headers = {"Content-Type" : "application/json", 
+				"X-HTTP-Method-Override" : "POST"};
+		$.ajax({
+			url: "${pageContext.request.contextPath}/restBoard/updateReply",
+			headers: headers,
+			data: paramData,
+			type: 'post',
+			dataType: 'text',
+			success: function(result){
+				
+				fnReplyList();
+			}
+			, error: function(error){
+				console.log("에러 : " + error);
+			}
+		});
+	} // end fnReplyUpdate
+	
+	// 댓글 삭제
+	function fnReplyDelete(rno){
+		var paramData = {"rno": rno};
+		$.ajax({
+			url: "${pageContext.request.contextPath}/restBoard/deleteReply",
+			data: paramData,
+			type: 'post',
+			dataType: 'text',
+			success: function(result){
+				fnReplyList();
+			},
+			erorr: function(error){
+				console.log("에러 : " + error);
+			}
+		});
+	}
+
 	
 </script>
 <style>
@@ -122,7 +226,7 @@ body {
 						<form:textarea path="content" id="content" class="form-control" rows="3" placeholder="댓글을 입력해 주세요"></form:textarea>
 					</div>
 					<div class="col-sm-2">
-						<form:input path="regdate" class="form-control" id="regdate" placeholder="댓글 작성자"></form:input>
+						<form:input path="writer" class="form-control" id="writer" placeholder="댓글 작성자"></form:input>
 						<button type="button" class="btn btn-sm btn-primary" id="insert_reply_btn" style="width: 100%; margin-top: 10px">저 장</button>	
 					</div>
 				</div>	

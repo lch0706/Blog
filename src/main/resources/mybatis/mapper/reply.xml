@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.koreait.blog.repository.ReplyRepository"> 
+<mapper namespace="com.koreait.blog.repository.BoardRepository"> 
 
 	<select id="selectReplyList" resultType="Reply">
 		SELECT RNO, BNO, CONTENT, WRITER, REGDATE
@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE RNO = #{rno}  
 	</update>
 	
-	<delete id="">
+	<delete id="deleteReply">
 		DELETE 
 		  FROM CH_REPLY
 		 WHERE RNO = #{rno} 

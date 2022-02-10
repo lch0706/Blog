@@ -22,9 +22,9 @@ public interface BoardService {
 	
 	// Reply
 	public List<Reply> getReplyList(Long bno) throws Exception;
-	public void insertReply(Reply reply, HttpServletResponse response) throws Exception;
-	public void updateReply(Reply reply, HttpServletResponse response) throws Exception;
-	public void deleteReply(Long rno, HttpServletResponse response) throws Exception;
+	public int insertReply(Reply reply) throws Exception;
+	public int updateReply(Reply reply) throws Exception;
+	public int deleteReply(Long rno) throws Exception;
 	
 	// default method
 	public default void message(int result, HttpServletResponse response,

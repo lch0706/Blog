@@ -93,19 +93,18 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public void insertReply(Reply reply, HttpServletResponse response) throws Exception {
-		int result = repository.insertReply(reply);
+	public int insertReply(Reply reply) throws Exception {
+		return repository.insertReply(reply);
 	}
 	
 	@Override
-	public void updateReply(Reply reply, HttpServletResponse response) throws Exception {
-		int result = repository.updateReply(reply);
+	public int updateReply(Reply reply) throws Exception {
+		return repository.updateReply(reply);
 	}
 	
 	@Override
-	public void deleteReply(Long rno, HttpServletResponse response) throws Exception {
-		int result = repository.deleteReply(rno);
-		message(result, response, "댓글이 삭제되었습니다.", "댓글삭제 실패", "/blog/board/getBoardList");
+	public int deleteReply(Long rno) throws Exception {
+		return repository.deleteReply(rno);
 	}
 
 }
