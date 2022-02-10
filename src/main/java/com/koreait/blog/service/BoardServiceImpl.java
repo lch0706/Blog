@@ -10,6 +10,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.koreait.blog.domain.Board;
+import com.koreait.blog.domain.Reply;
 import com.koreait.blog.repository.BoardRepository;
 import com.koreait.blog.util.Search;
 
@@ -84,6 +85,27 @@ public class BoardServiceImpl implements BoardService {
 	public void deleteBoard(Long bno, HttpServletResponse response) throws Exception {
 		int result = repository.deleteBoard(bno);
 		message(result, response, "게시글이 삭제되었습니다.", "삭제 실패", "/blog/board/getBoardList");
+	}
+	
+	@Override
+	public List<Reply> getReplyList(Long bno) throws Exception {
+		return repository.selectReplyList(bno);
+	}
+	
+	@Override
+	public void insertReply(Reply reply, HttpServletResponse response) throws Exception {
+		int result = repository.insertReply(reply);
+	}
+	
+	@Override
+	public void updateReply(Reply reply, HttpServletResponse response) throws Exception {
+		int result = repository.updateReply(reply);
+	}
+	
+	@Override
+	public void deleteReply(Long rno, HttpServletResponse response) throws Exception {
+		int result = repository.deleteReply(rno);
+		message(result, response, "댓글이 삭제되었습니다.", "댓글삭제 실패", "/blog/board/getBoardList");
 	}
 
 }

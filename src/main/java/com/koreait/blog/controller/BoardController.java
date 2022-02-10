@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.blog.domain.Board;
+import com.koreait.blog.domain.Reply;
 import com.koreait.blog.service.BoardService;
-import com.koreait.blog.util.PageUtils;
 import com.koreait.blog.util.Search;
 
 import lombok.AllArgsConstructor;
@@ -78,6 +78,7 @@ public class BoardController {
 								, Model model
 								, @RequestParam("bno") Long bno) throws Exception {
 		model.addAttribute("boardDetail", service.getBoardDetail(bno, request, response));
+		model.addAttribute("Reply", new Reply());
 		return "board/detail";
 	}
 	

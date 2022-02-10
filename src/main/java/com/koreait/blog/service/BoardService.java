@@ -7,17 +7,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.koreait.blog.domain.Board;
-import com.koreait.blog.util.PageUtils;
+import com.koreait.blog.domain.Reply;
 import com.koreait.blog.util.Search;
 
 public interface BoardService {
 	
+	// Board
 	public List<Board> getBoardList(Search search) throws Exception;
 	public int getBoardListCnt(Search search) throws Exception;
 	public void insertBoard(Board board, HttpServletResponse response) throws Exception;
 	public Board getBoardDetail(Long bno, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public void updateBoard(Board board, HttpServletResponse response) throws Exception;
 	public void deleteBoard(Long bno, HttpServletResponse response) throws Exception;
+	
+	// Reply
+	public List<Reply> getReplyList(Long bno) throws Exception;
+	public void insertReply(Reply reply, HttpServletResponse response) throws Exception;
+	public void updateReply(Reply reply, HttpServletResponse response) throws Exception;
+	public void deleteReply(Long rno, HttpServletResponse response) throws Exception;
 	
 	// default method
 	public default void message(int result, HttpServletResponse response,
