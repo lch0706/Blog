@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.koreait.blog.repository.MenuRepository"> 
+
+	<select id="selectMenuList" resultType="Menu">
+		SELECT MNO, CODE, CODENAME, SORT_NUM, COMMENT
+		  FROM CH_MENU
+		 ORDER BY SORT_NUM DESC, CODE ASC
+	</select>
+	
+	<insert id="insertMenu" parameterType="Menu">
+		INSERT INTO CH_MENU(CODE, CONTENT, SORT_NUM, COMMENT, REGDATE)
+		VALUES ( #{code}, #{codename}, #{sort_num}, #{comment}, now() )  
+	</insert>
+	
+	<update id="updateMenu" parameterType="Menu">
+		UPDATE CH_MENU 
+		   SET CODENAME = #{codename}, CONTENT = #{content}, SORT_NUM = #{sort_num}
+		 WHERE CODE = #{code}  
+	</update>
+	
+	<delete id="deleteMenu" parameterType="String">
+		DELETE 
+		  FROM CH_MENU
+		 WHERE CODE = #{code} 
+	</delete>
+			
+</mapper>

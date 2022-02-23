@@ -9,6 +9,8 @@
 <meta charset="UTF-8">
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!-- CKEditor -->
+<script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 <title>board</title>
@@ -36,10 +38,9 @@
 	});
 </script>
 <style>
-body {
-  padding-top: 70px;
-  padding-bottom: 30px;
-}
+	.ck-editor__editable {
+	 min-height: 300px;
+	}
 </style>
 </head>
 <body>
@@ -68,7 +69,7 @@ body {
 				
 				<div class="mb-3">
 					<label for="content">내용</label>
-					<form:textarea path="content" class="form-control" rows="5" name="content" id="content" placeholder="내용을 입력해 주세요" />
+					<form:textarea path="content" class="form-control" rows="5" name="content" id="content" placeholder="내용을 입력해 주세요" style="height : 100%;" />
 				</div>
 				
 				<div class="mb-3">
@@ -83,4 +84,11 @@ body {
 		</div>
 	</article>
 </body>
+<script>
+        ClassicEditor
+            .create( document.querySelector("#content"))
+            .catch( error => {
+                console.error( error );
+            });
+</script>        
 </html>

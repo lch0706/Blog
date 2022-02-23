@@ -12,6 +12,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<typeAliases>
 		<typeAlias type="com.koreait.blog.domain.Board" alias="Board" />
 		<typeAlias type="com.koreait.blog.domain.Reply" alias="Reply" />
+		<typeAlias type="com.koreait.blog.domain.Menu" alias="Menu" />
 	</typeAliases>
 	
 </configuration>

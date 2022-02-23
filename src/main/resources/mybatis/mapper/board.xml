@@ -56,7 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="updateBoard" parameterType="Board">
 		UPDATE CH_BOARD
-		   SET CATE_CD = #{cateCd, jdbcType=NULL}, TITLE = #{title}, CONTENT = #{content}, TAG = #{tag}, REGDATE = NO
+		   SET CATE_CD = #{cateCd, jdbcType=NULL}, TITLE = #{title}, CONTENT = #{content}, TAG = #{tag}, REGDATE = now()
 		 WHERE BNO = #{bno}  	
 	</update>
 	

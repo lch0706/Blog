@@ -191,12 +191,6 @@
 
 	
 </script>
-<style>
-body {
-  padding-top: 70px;
-  padding-bottom: 30px;
-}
-</style>
 </head>
 <body>
 	<article>

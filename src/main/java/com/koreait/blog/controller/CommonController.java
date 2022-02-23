@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.koreait.blog.domain.Board;
+import com.koreait.blog.domain.Menu;
 import com.koreait.blog.service.BoardService;
 
 import lombok.AllArgsConstructor;
@@ -43,6 +44,13 @@ public class CommonController {
 		model.addAttribute("mode", mode);
 		model.addAttribute("board", new Board());
 		return "board/insert";
+	}
+	
+	@GetMapping(value = "menu/getMenuList")
+	public String getMenuList(Model model) throws Exception {
+		model.addAttribute("menu", new Menu());
+		
+		return "menu/menu";
 	}
 }
 	
