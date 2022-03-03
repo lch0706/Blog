@@ -1,7 +1,5 @@
 package com.koreait.blog.config;
 
-import java.util.Properties;
-
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -10,14 +8,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.koreait.blog.service.BoardService;
 import com.koreait.blog.service.BoardServiceImpl;
 import com.koreait.blog.service.MenuService;
 import com.koreait.blog.service.MenuServiceImpl;
+import com.koreait.blog.service.UserService;
+import com.koreait.blog.service.UserServiceImpl;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -68,11 +66,12 @@ public class Config {
 	@Bean MenuService reviewService() throws Exception {
 		return new MenuServiceImpl(sqlSession());
 	}
-	/*
-	@Bean ArtService artService() throws Exception {
-		return new ArtServiceImpl(sqlSession());
+	
+	@Bean UserService userService() throws Exception {
+		return new UserServiceImpl(sqlSession());
 	}
 	
+	/*
 
 	@Bean 
 	public RentalService rentalService() throws Exception{

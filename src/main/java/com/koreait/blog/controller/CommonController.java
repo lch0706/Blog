@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.koreait.blog.domain.Board;
 import com.koreait.blog.domain.Menu;
+import com.koreait.blog.domain.User;
 import com.koreait.blog.service.BoardService;
 
 import lombok.AllArgsConstructor;
@@ -52,5 +53,6 @@ public class CommonController {
 		
 		return "menu/menu";
 	}
+	
 }
 	

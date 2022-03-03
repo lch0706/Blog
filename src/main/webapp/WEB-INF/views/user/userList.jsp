@@ -1,27 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 <title>Insert title here</title>
-</head>
 <script>
-	$(document).on('click', '#insert_btn', function(e){
+	$(document).on('click', '#Serach_btn' function(e){
 		e.preventDefault();
-		location.href= "${pageContext.request.contextPath}/board/boardForm"
-	});
-	
-	// 글 상세보기 함수
-	function fnBoardDetail(bno){
-		let url = "${pageContext.request.contextPath}/board/getBoardDetail";
-		url = url + "?bno=" + bno;
+		var url = "${pageContext.request.contextPath}/user/getUserList";
+		url = url + "?searchType=" + $('#searchType').val();
+		url = url + "&keyword" + $('#keyword').val();
+		console.log(url);
 		location.href = url;
-	} // end fnBoardDetail
+	});
 	
 	// 이전 버튼 함수
 	function fnPrev(page, range, rangeSize, searchType, query) {
@@ -56,65 +49,51 @@
 		url = url + "&range=" + range;
 		url = url + "&searchType=" + $('#searchType').val();
 		url = url + "&query=" + query;
+		
 		location.href = url;
 	}
 	
-	// 검색 함수
-	$(document).on('click', '#search_btn', function(e){
-		e.preventDefault();
-		var url = "${pageContext.request.contextPath}/board/getBoardList";
-		url = url + "?searchType=" + $('#searchType').val();
-		url = url + "&query=" + $('#query').val();
-		location.href = url;
-	});
 </script>
-
+</head>
 <body>
 <article>
 	<div class="container">
+		<h2>User list</h2>
+		
 		<div class="table-responsive">
-		<h2>board list</h2>
 			<table class="table table-striped table-sm">
 				<colgroup>
-					<col style="width: 5%;" />
-					<col style="width: auto;" />
-					<col style="width: 15%;" />
-					<col style="width: 10%;" />
-					<col style="width: 10%;" />
+					<col style="width:auto;" />
+					<col style="width:25%;" />
+					<col style="width:25%;" />
+					<col style="width:15%;" />
+					<col style="width:15%;" />
 				</colgroup>
 				<thead>
 					<tr>
-						<th>NO</th>
-						<th>글제목</th>
-						<th>작성자</th>
-						<th>조회수</th>
-						<th>작성일</th>
+						<th>USER ID</th>
+						<th>USER NAME</th>
+						<th>EMAIL</th>
+						<th>GRADE</th>
+						<th>가입일</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:choose>
-						<c:when test="${empty boardList }">
-							<tr>
-								<td colspan="5" align="center">데이터가 없습니다.</td>
-							</tr>
-						</c:when>
-						<c:when test="${!empty boardList}">
-							<c:forEach var="list" items="${boardList}">
+						<c:when test="${ !empty userList }">
+							<c:forEach var="list" items="${userList}">
 								<tr>
-									<td><c:out value="${list.bno}" /></td>
-									<td><a href="#" onclick="fnBoardDetail(<c:out value="${list.bno}"/>)"><c:out value="${list.title}" /></a></td>
-									<td><c:out value="${list.writer}" /></td>
-									<td><c:out value="${list.viewCnt}" /></td>
-									<td><c:out value="${list.regDate}" /></td>
+									<td><c:out value="${list.uno}"></c:out></td>
+									<td><c:out value="${list.name}"></c:out></td>
+									<td><c:out value="${list.email}"></c:out></td>
+									<td><c:out value="${list.grade}"></c:out></td>
+									<td><c:out value="${list.regdate}"></c:out></td>
 								</tr>
 							</c:forEach>
 						</c:when>
-					</c:choose>
-				</tbody>
+					</c:choose>			
+				</tbody>	
 			</table>
-		</div>
-		<div>
-			<input type="button" class="btn btn-sm btn-primary" id="insert_btn" value="글쓰기"><br><br>
 		</div>
 	<!-- pagination -->
 	<div id="paginationBox">
@@ -148,10 +127,7 @@
 			</div>
 		</div>
 	<!-- END search -->
-	</div>	
+	</div>
 </article>
 </body>
 </html>
-
-
-
