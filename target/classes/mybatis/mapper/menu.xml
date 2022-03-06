@@ -12,13 +12,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="insertMenu" parameterType="Menu">
-		INSERT INTO CH_MENU(CODE, CONTENT, SORT_NUM, COMMENT, REGDATE)
+		INSERT INTO CH_MENU(CODE, CODENAME, SORT_NUM, COMMENT, REGDATE)
 		VALUES ( #{code}, #{codename}, #{sort_num}, #{comment}, now() )  
 	</insert>
 	
 	<update id="updateMenu" parameterType="Menu">
 		UPDATE CH_MENU 
-		   SET CODENAME = #{codename}, CONTENT = #{content}, SORT_NUM = #{sort_num}
+		   SET CODENAME = #{codename}, COMMENT = #{comment}, SORT_NUM = #{sort_num}
 		 WHERE CODE = #{code}  
 	</update>
 	

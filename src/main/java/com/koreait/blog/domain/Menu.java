@@ -22,6 +22,5 @@ public class Menu {
 	private String comment;
 	private String regdate;
 	
-	
 
 }

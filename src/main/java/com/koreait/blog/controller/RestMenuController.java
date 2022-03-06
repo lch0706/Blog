@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,8 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.koreait.blog.domain.Menu;
 import com.koreait.blog.service.MenuService;
 
+import lombok.AllArgsConstructor;
+
 @RestController
 @RequestMapping("/restMenu")
+@AllArgsConstructor
 public class RestMenuController {
 	
 	private MenuService service;
@@ -34,15 +38,18 @@ public class RestMenuController {
 	}
 	
 	@PostMapping(value = "/insertMenu", produces="application/json; charset=UTF-8")
-	public Map<String, Object> insertMenu(Menu menu) throws Exception {
+	public Map<String, Object> insertMenu(@RequestBody Menu menu) throws Exception {
 		
 		Map<String, Object> result = new HashMap<String, Object>();
+		
+		System.out.println("menu : " + menu.toString());
 		
 		try {
 			
 			service.insertMenu(menu);
 			result.put("status", "OK");
 		} catch (Exception e) {
+			e.printStackTrace();
 			result.put("status", "False");
 		}
 		return result;
@@ -58,6 +65,7 @@ public class RestMenuController {
 			service.updateMenu(menu);
 			result.put("status", "OK");
 		} catch (Exception e) {
+			e.printStackTrace();
 			result.put("status", "False");
 		}
 		

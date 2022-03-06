@@ -12,7 +12,7 @@ import com.koreait.blog.domain.User;
 import com.koreait.blog.service.UserService;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("user")
 public class UserController {
 	
 	private UserService service;
@@ -25,7 +25,7 @@ public class UserController {
 	}
 	
 	@PostMapping(value = "/insertUser")
-	public String insertUser(@ModelAttribute("user") User user, RedirectAttributes rttr) throws Exception {
+	public String insertUser(@ModelAttribute("User") User user, RedirectAttributes rttr) throws Exception {
 		service.insertUser(user);
 		
 		return "redirect:/user/getUserList";

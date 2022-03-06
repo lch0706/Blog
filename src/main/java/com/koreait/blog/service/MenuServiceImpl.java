@@ -21,18 +21,18 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	@Override
-	public void insertMenu(Menu menu) throws Exception {
-		repository.insertMenu(menu);
+	public int insertMenu(Menu menu) throws Exception {
+		return repository.insertMenu(menu);
 	}
 
 	@Override
-	public void updateMenu(Menu menu) throws Exception {
-		repository.updateMenu(menu);
+	public int updateMenu(Menu menu) throws Exception {
+		return repository.updateMenu(menu);
 	}
 
 	@Override
-	public void deleteMenu(String code) throws Exception {
-		repository.deleteMenu(code);
+	public int deleteMenu(String code) throws Exception {
+		return repository.deleteMenu(code);
 	}
 
 }

@@ -15,25 +15,36 @@
 
 	$(document).ready(function(){
 		fnMenuList();
-		fnMenuInsert();
+		fnMenuInsert_Modify();
+		fnMenuInfo();
+		fnMenuDelete();
+		fnInit();
+		
 	});
 	
 	function fnMenuList() {
 		var paramData = {}; 
-			$.ajax({ url : "${getMenuListURL}" ,
-				type : "POST" ,
-				dataType : "json" ,
-				data : paramData ,
+		
+			$.ajax({ 
+				url : "${pageContext.request.contextPath}/restMenu/getMenuList",
+				type : 'post',
+				dataType : 'json',
+				data : paramData,
 				success : function(result){ 
-					console.log(result); 
+					console.log(result);
+					
 					if (result.status == "OK"){ 
-						if ( result.menuList.length > 0 ) { 
+						if ( result.menuList.length > 0) { 
 							var list = result.menuList; 
 							var htmls = ""; 
 							result.menuList.forEach(function(e) { 
 								htmls += '<tr>';
 								htmls += '<td>' + e.mno + '</td>';
-								htmls += '<td>' + e.code + '</td>';
+								htmls += '<td>';
+								htmls += '<a href="#" onClick="fnMenuInfo(' + e.mno + ',\'' + e.code + '\', \'' + e.codename + '\', ' + e.sort_num + ', \'' + e.comment + '\')">';
+								htmls += e.code;
+								htmls += '</a>';
+								htmls += '</td>';
 								htmls += '<td>' + e.codename + '</td>';
 								htmls += '<td>' + e.sort_num + '</td>';
 								htmls += '<td>' + e.comment + '</td>';
@@ -48,39 +59,114 @@
 			});
 	} // end fnMenuList
 	
-	function fnMenuInsert() {
+	function fnMenuInsert_Modify() {
 		$('#insert_btn').click(function(){
 			
-			var url ="${insertURL}";
+			var url = "${pageContext.request.contextPath}/restMenu/insertMenu";
 			
-			var paramData = {
-					"code" : $("#code").val(),
-					"codename" : $("#codename").val(),
-					"sort_num" : $("#sort_num").val(),
-					"comment" : $("#comment").val()
-			};
+			var paramData = JSON.stringify({
+				"code" : $("#code").val(),
+				"codename" : $("#codename").val(),
+				"sort_num" : $("#sort_num").val(),
+				"comment" : $("#comment").val()
+			});
+			
+			if ($("#mno").val() != 0) {
+				var url = "${pageContext.request.contextPath}/restMenu/updateMenu";
+			}
+			
+			var paramData = JSON.stringify({
+				"code" : $("#code").val(),
+				"codename" : $("#codename").val(),
+				"sort_num" : $("#sort_num").val(),
+				"comment" : $("#comment").val()
+			});
 			
 			$.ajax({
 				url : url,
-				type : "post",
+				type : 'post',
 				data : paramData,
+				contentType: 'application/json',
+				dataType: 'json',
 				success : function(result){
-					fnMenuList();
+					if (result.status == "OK") {
+						alert('등록 되었습니다');
+						fnInit();
+						fnMenuList();
+					} else {
+						alert('등록을 실패했습니다.');
+					}
 					// 초기화 이벤트
-					$("#init_btn").trigger("click");
-					
+					//$("#init_btn").trigger("click");
 				}
 			});
+			/*
 			$(document).on("click", "#init_btn", function(){
 				$('#mno').val(''); 
 				$('#code').val(''); 
 				$('#codename').val(''); 
 				$('#sort_num').val(''); 
 				$('#comment').val('');
+				$('#code').attr("readonly", false);
 			});
+			*/
 			
 		});
 	} // end fnMenuInsert
+	
+	function fnMenuDelete(){
+		$("#delete_btn").click(function(){
+			if ($("#code").val() == "") {
+				alert("삭제할 코드를 선택해 주세요.");
+				return;
+			}
+			
+			var url = "${pageContext.request.contextPath}/restMenu/deleteMenu";
+			
+			var paramData = {
+					"code" : $("#code").val()
+			};
+			
+			$.ajax({
+				url : url,
+				type : 'post',
+				dataType : 'json',
+				data : paramData,
+				success : function(result){
+					fnMenuList();
+					// 삭제 후 세팅값 초기화
+					fnInit();
+				}
+				
+			});
+		});
+	}
+	
+	function fnInit() {
+		$("#init_btn").click(function(){
+			$('#mno').val(''); 
+			$('#code').val(''); 
+			$('#codename').val(''); 
+			$('#sort_num').val(''); 
+			$('#comment').val('');
+			$('#code').attr("readonly", false);
+			
+		});
+	}
+	
+	function fnMenuInfo(mno, code, codename, sort_num, comment) {
+		$('#mno').val(mno); 
+		$('#code').val(code); 
+		$('#codename').val(codename); 
+		$('#sort_num').val(sort_num); 
+		$('#comment').val(comment);
+		
+		//코드 부분 읽기 모드로 전환 
+		//$("#code").attr("readonly", true);
+
+	} // end fnMenuInfo
+	
+	
 	
 </script>
 <style>
@@ -114,7 +200,7 @@
 						<div class="col-md-3 mb-3">
 							<label for="sort_num">Sort</label>
 							<form:input path="sort_num" class="form-control" id="sort_num"
-								placeholder="" required="" />
+								placeholder="" value="" required="" />
 						</div>
 					</div>
 					<div class="row">

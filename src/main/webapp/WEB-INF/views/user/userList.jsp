@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	$(document).on('click', '#Serach_btn' function(e){
+	$(document).on('click', "#search_btn", function(e){
 		e.preventDefault();
 		var url = "${pageContext.request.contextPath}/user/getUserList";
 		url = url + "?searchType=" + $('#searchType').val();
@@ -96,6 +96,8 @@
 			</table>
 		</div>
 	<!-- pagination -->
+	<!-- 
+	 -->
 	<div id="paginationBox">
 		<ul class="pagination">
 			<c:if test="${pageUtils.prev}">
@@ -127,6 +129,7 @@
 			</div>
 		</div>
 	<!-- END search -->
+	
 	</div>
 </article>
 </body>
