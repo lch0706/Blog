@@ -18,8 +18,8 @@
 		e.preventDefault();
 	$('#uno').val('');
 		$('#name').val('');
-		$('#pwd1').val('');
-		$('#pwd2').val('');
+		$('#password').val('');
+		$('#repassword').val('');
 		$('#email').val('');
 	});
 </script>

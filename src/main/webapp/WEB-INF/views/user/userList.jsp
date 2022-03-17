@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-3.4.1.js"integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
@@ -21,7 +23,7 @@
 		var page = ((range - 2) * rangeSize) + 1;
 		var range = range - 1;
 		
-		var url = "${pageContext.request.contextPath}/board/getBoardList";
+		var url = "${pageContext.request.contextPath}/user/getUserList";
 		url = url + "?page=" + page;
 		url = url + "&range=" + range;
 		url = url + "&searchType=" + $('#searchType').val();
@@ -31,7 +33,7 @@
 	
 	// 페이지 번호 클릭 함수
 	function fnPageUtils(page, range, rangeSize, searchType, query) {
-		var url = "${pageContext.request.contextPath}/board/getBoardList";
+		var url = "${pageContext.request.contextPath}/user/getUserList";
 		url = url + "?page=" + page;
 		url = url + "&range=" + range;
 		url = url + "&searchType=" + $('#searchType').val();
@@ -44,7 +46,7 @@
 		var page = parseInt((range * rangeSize)) + 1;
 		var range = parseInt(range) + 1;
 		
-		var url = "${pageContext.request.contextPath}/board/getBoardList";
+		var url = "${pageContext.request.contextPath}/user/getUserList";
 		url = url + "?page=" + page;
 		url = url + "&range=" + range;
 		url = url + "&searchType=" + $('#searchType').val();
@@ -116,9 +118,9 @@
 		<div class="form-group row justify-content-center">
 			<div class="w100" style="padding-right:10px">
 				<select class="form-control form-control-sm" name="searchType" id="searchType">
-					<option value="title"<c:if test="${searchType == 'title'}">selected='selected'</c:if>>제목</option>
-					<option value="content"<c:if test="${searchType == 'content'}">selected='selected'</c:if>>본문</option>
-					<option value="writer"<c:if test="${searchType == 'writer'}">selected='selected'</c:if>>작성자</option>
+					<option value="title"<c:if test="${searchType == 'uno'}">selected='selected'</c:if>>아이디</option>
+					<option value="content"<c:if test="${searchType == 'name'}">selected='selected'</c:if>>이름</option>
+					<option value="writer"<c:if test="${searchType == 'email'}">selected='selected'</c:if>>이메일</option>
 				</select>
 			</div>
 			<div class="w300" style="padding-right:10px">

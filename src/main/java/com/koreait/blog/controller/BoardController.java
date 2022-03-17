@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,7 +30,7 @@ public class BoardController {
 	private BoardService service;
 	
 	// 게시글 목록 불러오기
-	@GetMapping(value= "/getBoardList")
+	@RequestMapping(value= "/getBoardList", method = {RequestMethod.GET, RequestMethod.POST})
 	public String getBoardList(Model model
 			                   , @RequestParam(required = false, defaultValue = "1") int page
 			                   , @RequestParam(required = false, defaultValue = "1") int range

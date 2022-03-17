@@ -5,22 +5,53 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.koreait.blog.repository.UserRepository">
 
-	<select id="selectUserInfo" resultType="User">
-		SELECT UNO, NAME, PASSWORD, EMAIL, GRADE, REGDATE
-		  FROM CH_USER
-		 WHERE UNO = #{uno}
-		 ORDER BY REGDATE DESC
-	</select> 
 
-	<select id="selectUserList" resultType="User">
+	<select id="selectUserList" parameterType="Map" resultType="User">
 		SELECT UNO, NAME, PASSWORD, EMAIL, GRADE, REGDATE
 		  FROM CH_USER
+		  	<trim prefix="WHERE" prefixOverrides="AND|OR">
+			  	<if test="searchType=='uno' and query != null and query != ''">
+					AND UNO LIKE CONCAT('%', #{query}, '%')
+				</if>
+				<if test="searchType=='name' and query != null and query != ''">
+					AND NAME LIKE CONCAT('%', #{query}, '%')
+				</if>
+				<if test="searchType=='email' and query != null and query != ''">
+					AND EMAIL LIKE CONCAT('%', #{query}, '%')
+				</if>
+			</trim>
+		LIMIT #{startList}, #{listSize}
 	</select>
 	
+	<select id="selectUserListCnt" resultType="int">
+		SELECT
+			COUNT(*) AS LISTCNT
+		  FROM CH_USER
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="query != null and query != '' ">
+				<if test="searchType=='uno'">
+				AND UNO like CONCAT('%', #{query}, '%')
+				</if>
+				<if test="searchType=='name'">
+				AND NAME like CONCAT('%', #{query}, '%')
+				</if>
+				<if test="searchType=='email'">
+				AND EMAIL like CONCAT('%', #{query}, '%')
+			</if>
+     	 </if>
+		</trim>
+	</select>
+	 
 	<insert id="insertUser" parameterType="User">
-		INSERT INTO CH_USER(UNO, NAME, PASSWORD, EMAIL, GRADE, REGDATE)
-		VALUES ( #{uno}, #{name}, #{password} #{email}, #{grade} now() )  
+		INSERT INTO CH_USER(UNO, NAME, PASSWORD, EMAIL, REGDATE)
+		VALUES ( #{uno}, #{name}, #{password}, #{email}, now() )  
 	</insert>
+	
+	<select id="loginUser" parameterType="User" resultType="User">
+		SELECT UNO, NAME, PASSWORD, EMAIL, GRADE, REGDATE
+		  FROM CH_USER
+		 WHERE UNO = #{uno} and PASSWORD = #{password} 
+	</select>
 	
 	<update id="updateUser" parameterType="User">
 		UPDATE CH_USER 

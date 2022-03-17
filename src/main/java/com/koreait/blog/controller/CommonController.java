@@ -47,11 +47,25 @@ public class CommonController {
 		return "board/insert";
 	}
 	
+	// 메뉴리스트 화면 이동
 	@GetMapping(value = "menu/getMenuList")
 	public String getMenuList(Model model) throws Exception {
 		model.addAttribute("menu", new Menu());
 		
 		return "menu/menu";
+	}
+	
+	// 로그인 화면 이동
+	@GetMapping(value = "login/loginForm")
+	public String loginForm(Model model) throws Exception {
+		model.addAttribute("user", new User());
+		return "login/login";
+	}
+	// 회원가입 화면 이동
+	@GetMapping(value = "login/signupForm" )
+	public String signupForm(Model model) throws Exception {
+		model.addAttribute("user", new User());
+		return "login/signupForm";
 	}
 	
 }
