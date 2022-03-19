@@ -1,13 +1,13 @@
-# 프로젝트명
-> 간략한 프로젝트 소개 문구를 작성합니다.
+![header](https://capsule-render.vercel.app/api?type=waving&color=black&height=100&section=header&text=CRUD%20프로젝트&fontSize=21)
+> BootStrap을 활용한 CRUD 게시판 입니다.
 
 [![NPM Version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Downloads Stats][npm-downloads]][npm-url]
 
-한 두 문단으로 프로젝트 소개 글을 작성합니다.
-
-![](../header.png)
+CRUD와 페이징 검색 기능등을 구현했으며    
+tiles를 사용해서 레이아웃을 구분했습니다.
+![Blog Main](https://user-images.githubusercontent.com/94353223/159122471-a16c5f89-ee83-498f-8ed3-e89afd01ee02.png)
 
 ## 설치 방법
 
