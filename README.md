@@ -9,7 +9,7 @@ CRUD와 페이징 검색 기능등을 구현했으며
 tiles를 사용해서 레이아웃을 구분했습니다.
 ![Blog Main](https://user-images.githubusercontent.com/94353223/159122471-a16c5f89-ee83-498f-8ed3-e89afd01ee02.png)
 
-## 설치 방법
+## 라이브러리
 
 OS X & 리눅스:
 
