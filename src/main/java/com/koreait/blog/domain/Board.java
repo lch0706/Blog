@@ -19,7 +19,7 @@ public class Board {
 	private Long bno;
 	private String cateCd;
 	private String title;
-	private String writer;
+	private String name;
 	private String content;
 	private String tag;
 	private Long viewCnt;

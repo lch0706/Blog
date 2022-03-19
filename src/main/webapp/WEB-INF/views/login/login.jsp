@@ -6,13 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script>
-/*
-	function fnSignupClick() {
-		location.href ="${pageContext.request.contextPath}/user/signupForm";
-	}
-*/	
-</script>
 </head>
 <body>
 
@@ -28,7 +21,7 @@
 		</div>
 		
 		<div class="form-label-group">
-			<form:input path="password" id="password" class="form-control" placeholder="User Password" required="" autofocus="" />
+			<form:input type="password" path="password" id="password" class="form-control" placeholder="User Password" required="" autofocus="" />
 			<label for="password" class="sr-only">User Password</label>
 		</div>
 		

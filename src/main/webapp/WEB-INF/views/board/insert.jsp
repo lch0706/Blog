@@ -26,10 +26,10 @@
 		var mode = '<c:out value="${mode}"/>';
 		if ( mode == 'update'){
 			//입력 폼 셋팅
-			$("#writer").prop('readonly', true);
+			$("#name").prop('readonly', true);
 			$("input:hidden[name='bno']").val(<c:out value="${boardDetail.bno}"/>);
 			$("input:hidden[name='mode']").val('<c:out value="${mode}"/>');
-			$("#writer").val('<c:out value="${boardDetail.writer}"/>');
+			$("#name").val('<c:out value="${boardDetail.name}"/>');
 			$("#title").val('<c:out value="${boardDetail.title}"/>');
 			$("#content").val('<c:out value="${boardDetail.content}"/>');
 			$("#tag").val('<c:out value="${boardDetail.tag}"/>');
@@ -62,8 +62,8 @@
 				
 				
 				<div class="mb-3">
-					<label for="writer">작성자</label>
-					<form:input path="writer" class="form-control" id="writer" placeholder="이름을 입력해 주세요" />
+					<label for="name">작성자</label>
+					<form:input path="name" class="form-control" id="name" value="${loginUser.name}" readonly="true" />
 				</div>
 				
 				<div class="mb-3">

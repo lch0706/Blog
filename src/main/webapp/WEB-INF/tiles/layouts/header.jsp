@@ -21,7 +21,7 @@
         <a class="nav-link" href="#">Board <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Q&A</a>
+        <a class="nav-link" href="#">Menu List</a>
       </li>
       <c:if test="${loginUser == null}">
       <li class="nav-item active">

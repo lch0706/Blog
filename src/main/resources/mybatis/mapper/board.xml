@@ -7,8 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectBoardList" parameterType="Map" resultType="Board">
 		SELECT
-			BNO, CATE_CD, TITLE, WRITER, CONTENT, TAG, VIEW_CNT, REGDATE
-		FROM
+			BNO, CATE_CD, TITLE, NAME, CONTENT, TAG, VIEW_CNT, REGDATE
+		  FROM
 			CH_BOARD
 			<trim prefix="WHERE" prefixOverrides="AND|OR">
 				<if test="searchType=='title' and query != null and query != ''">
@@ -17,11 +17,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				<if test="searchType=='content' and query != null and query != ''">
 					AND CONTENT LIKE CONCAT('%', #{query}, '%')
 				</if>
-				<if test="searchType=='writer' and query != null and query != ''">
-					AND WRITER LIKE CONCAT('%', #{query}, '%')
+				<if test="searchType=='name' and query != null and query != ''">
+					AND NAME LIKE CONCAT('%', #{query}, '%')
 				</if>
 			</trim>
-		LIMIT #{startList}, #{listSize}
+		 ORDER BY BNO desc	
+		 LIMIT #{startList}, #{listSize}
 	</select>
 	
 	<select id="selectBoardListCnt" resultType="int">
@@ -36,22 +37,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				<if test="searchType=='content'">
 				AND CONTENT like CONCAT('%', #{query}, '%')
 				</if>
-				<if test="searchType=='writer'">
-				AND WRITER like CONCAT('%', #{query}, '%')
+				<if test="searchType=='name'">
+				AND name like CONCAT('%', #{query}, '%')
 			</if>
      	 </if>
 		</trim>
 	</select>
 	
 	<select id="selectBoardBybno" resultType="Board" parameterType="Board">
-		SELECT BNO, CATE_CD, TITLE, WRITER, CONTENT, TAG, VIEW_CNT, REGDATE
+		SELECT BNO, CATE_CD, TITLE, NAME, CONTENT, TAG, VIEW_CNT, REGDATE
 		  FROM CH_BOARD
 		 WHERE BNO = #{bno} 
 	</select>
 	
 	<insert id="insertBoard" parameterType="Board">
-		INSERT INTO CH_BOARD (CATE_CD, TITLE, WRITER, CONTENT, TAG, VIEW_CNT, REGDATE)
-		VALUES ( #{cateCd}, #{title}, #{writer}, #{content}, #{tag}, 0, now() )
+		INSERT INTO CH_BOARD (CATE_CD, TITLE, NAME, CONTENT, TAG, VIEW_CNT, REGDATE)
+		VALUES ( #{cateCd}, #{title}, #{name}, #{content}, #{tag}, 0, now() )
 	</insert>
 	
 	<update id="updateBoard" parameterType="Board">

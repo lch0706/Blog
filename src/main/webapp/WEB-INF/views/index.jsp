@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>안녕</h1> 
-	<h2><a href="/blog/board/getBoardList">zz</a></h2>
+	<h1>CRUD 포트폴리오</h1> 
+	<h2><a href="/blog/board/getBoardList">:D</a></h2>
 </body>
 </html>

@@ -198,7 +198,7 @@
 			<div class="bg-white rounded shadow-sm">
 				<div class="board_title"><c:out value="${boardDetail.title}" /></div>
 				<div class="board_info_box">
-					<span class="board_author"><c:out value="${boardDetail.writer}" /></span> 
+					<span class="board_author"><c:out value="${boardDetail.name}" /></span> 
 					<span class="board_date"><c:out value="${boardDetail.regDate}" /></span>
 				</div>
 				<div class="board_content">${boardDetail.content}</div>

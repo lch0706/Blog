@@ -11,11 +11,19 @@
 <title>Insert title here</title>
 </head>
 <script>
+
+	// 글 작성 함수
 	$(document).on('click', '#insert_btn', function(e){
-		e.preventDefault();
-		location.href= "${pageContext.request.contextPath}/board/boardForm"
+		loginUser = "${loginUser}"
+		if (loginUser == "") {
+			alert("로그인 후 이용하실 수 있습니다.")
+			location.href= "${pageContext.request.contextPath}/login/loginForm"
+		} else if (loginUser != "") {
+			console.log(loginUser)
+			location.href= "${pageContext.request.contextPath}/board/boardForm"
+		}
+
 	});
-	
 	// 글 상세보기 함수
 	function fnBoardDetail(bno){
 		let url = "${pageContext.request.contextPath}/board/getBoardDetail";
@@ -103,7 +111,7 @@
 								<tr>
 									<td><c:out value="${list.bno}" /></td>
 									<td><a href="#" onclick="fnBoardDetail(<c:out value="${list.bno}"/>)"><c:out value="${list.title}" /></a></td>
-									<td><c:out value="${list.writer}" /></td>
+									<td><c:out value="${list.name}" /></td>
 									<td><c:out value="${list.viewCnt}" /></td>
 									<td><c:out value="${list.regDate}" /></td>
 								</tr>
@@ -123,7 +131,7 @@
 				<li class="page-item"><a class="page-link" href="#" onClick="fnPrev('${pageUtils.page}', '${pageUtils.range}', '${pageUtils.rangeSize}', '${search.searchType}', '${search.query}')">Previous</a></li>
 			</c:if>
 			<c:forEach begin="${pageUtils.startPage}" end="${pageUtils.endPage}" var="idx">
-				<li class="page-item <c:out value="${pageUtils.page == idx ? 'active' : ''}"/> "><a class="page-link" href="#" onClick="fnPageUtils'${idx}', '${pageUtils.range}', '${pageUtils.rangeSize}', '${search.searchType}', '${search.query}')"> ${idx} </a></li>
+				<li class="page-item <c:out value="${pageUtils.page == idx ? 'active' : ''}"/> "><a class="page-link" href="#" onClick="fnPageUtils('${idx}', '${pageUtils.range}', '${pageUtils.rangeSize}', '${search.searchType}', '${search.query}')"> ${idx} </a></li>
 			</c:forEach>
 			<c:if test="${pageUtils.next}">
 				<li class="page-item"><a class="page-link" href="#" onClick="fnNext('${pageUtils.page}', '${pageUtils.range}', '${pageUtils.rangeSize}', '${search.searchType}', '${search.query}')" >Next</a></li>
@@ -137,7 +145,7 @@
 				<select class="form-control form-control-sm" name="searchType" id="searchType">
 					<option value="title"<c:if test="${searchType == 'title'}">selected='selected'</c:if>>제목</option>
 					<option value="content"<c:if test="${searchType == 'content'}">selected='selected'</c:if>>본문</option>
-					<option value="writer"<c:if test="${searchType == 'writer'}">selected='selected'</c:if>>작성자</option>
+					<option value="name"<c:if test="${searchType == 'name'}">selected='selected'</c:if>>작성자</option>
 				</select>
 			</div>
 			<div class="w300" style="padding-right:10px">

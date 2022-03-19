@@ -25,7 +25,7 @@ public class CommonController {
 	// 메인화면 이동
 	@GetMapping("/")
 	public String index() {
-		return "index";
+		return "redirect:/board/getBoardList";
 	}
 	
 	// 목록화면 이동

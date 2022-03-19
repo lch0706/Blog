@@ -1,6 +1,9 @@
 package com.koreait.blog.controller;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -57,7 +60,6 @@ public class UserController {
 	@PostMapping(value = "/insertUser")
 	public String insertUser(@ModelAttribute("user") User user, RedirectAttributes rttr) throws Exception {
 		
-		System.out.println("user : " + user.toString());
 		service.insertUser(user);
 		
 		return "redirect:/user/getUserList";
@@ -66,24 +68,31 @@ public class UserController {
 	@PostMapping(value = "/loginUser")
 	public String loginUser(@ModelAttribute("user") User user, HttpSession session, RedirectAttributes rttr) throws Exception {
 		
-		System.out.println("user : " + user.toString());
 		service.loginUser(user, session);
 		
-		return "redirect:/";
+		return "redirect:/board/getBoardList";
 		
 	}
 	
 	@GetMapping(value = "/logoutUser")
-	public String logoutUser(HttpServletRequest request) {
+	public void logoutUser(HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr) {
 		
 		HttpSession session = request.getSession();
-		
 		session.invalidate();
 		
-		return "redirect:/";
+		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('로그아웃 성공')");
+			out.println("location.href='/blog/board/getBoardList'");
+			out.println("</script>");
+			out.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
-	
-
 
 }
