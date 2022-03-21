@@ -106,7 +106,7 @@
 				<li class="page-item"><a class="page-link" href="#" onClick="fnPrev('${pageUtils.page}', '${pageUtils.range}', '${pageUtils.rangeSize}', '${search.searchType}', '${search.query}')">Previous</a></li>
 			</c:if>
 			<c:forEach begin="${pageUtils.startPage}" end="${pageUtils.endPage}" var="idx">
-				<li class="page-item <c:out value="${pageUtils.page == idx ? 'active' : ''}"/> "><a class="page-link" href="#" onClick="fnPageUtils'${idx}', '${pageUtils.range}', '${pageUtils.rangeSize}', '${search.searchType}', '${search.query}')"> ${idx} </a></li>
+				<li class="page-item <c:out value="${pageUtils.page == idx ? 'active' : ''}"/> "><a class="page-link" href="#" onClick="fnPageUtils('${idx}', '${pageUtils.range}', '${pageUtils.rangeSize}', '${search.searchType}', '${search.query}')"> ${idx} </a></li>
 			</c:forEach>
 			<c:if test="${pageUtils.next}">
 				<li class="page-item"><a class="page-link" href="#" onClick="fnNext('${pageUtils.page}', '${pageUtils.range}', '${pageUtils.rangeSize}', '${search.searchType}', '${search.query}')" >Next</a></li>

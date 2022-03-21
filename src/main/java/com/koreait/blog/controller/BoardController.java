@@ -78,8 +78,10 @@ public class BoardController {
 								, HttpServletResponse response 
 								, Model model
 								, @RequestParam("bno") Long bno) throws Exception {
+		
 		model.addAttribute("boardDetail", service.getBoardDetail(bno, request, response));
 		model.addAttribute("Reply", new Reply());
+		
 		return "board/detail";
 	}
 	
@@ -88,6 +90,8 @@ public class BoardController {
 	public void deleteBoard(RedirectAttributes rttr, @RequestParam("bno") Long bno, HttpServletResponse response) throws Exception {
 		service.deleteBoard(bno, response);
 	}
+	
+
 	
 	/* @ExceptionHandler를 사용한 예외처리 방식
 	@ExceptionHandler(RuntimeException.class)

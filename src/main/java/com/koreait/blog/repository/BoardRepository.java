@@ -2,6 +2,8 @@ package com.koreait.blog.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.koreait.blog.domain.Board;
 import com.koreait.blog.domain.Reply;
 import com.koreait.blog.util.Search;
@@ -16,10 +18,13 @@ public interface BoardRepository {
 	public int updateBoard(Board board) throws Exception;
 	public int deleteBoard(Long bno) throws Exception;
 	public int updateViewCnt(Long bno) throws Exception;
+	public void updateReplyCount(@Param("bno")Long bno,
+								 @Param("amount") int amount) throws Exception;
 	
 	// Reply
 	public List<Reply> selectReplyList(Long bno) throws Exception;
 	public int insertReply(Reply reply) throws Exception;
 	public int updateReply(Reply reply) throws Exception;
 	public int deleteReply(Long rno) throws Exception;
+	
 }

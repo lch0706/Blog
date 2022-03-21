@@ -45,7 +45,6 @@ public class BoardServiceImpl implements BoardService {
 	@Transactional
 	@Override
 	public Board getBoardDetail(Long bno, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println(bno.toString());
 		Cookie oldCookie = null;
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
@@ -86,25 +85,27 @@ public class BoardServiceImpl implements BoardService {
 		int result = repository.deleteBoard(bno);
 		message(result, response, "게시글이 삭제되었습니다.", "삭제 실패", "/blog/board/getBoardList");
 	}
-	
+	// 댓글 목록
 	@Override
 	public List<Reply> getReplyList(Long bno) throws Exception {
 		return repository.selectReplyList(bno);
 	}
 	
+	// 댓글 삽입
 	@Override
 	public int insertReply(Reply reply) throws Exception {
 		return repository.insertReply(reply);
 	}
-	
+	// 댓글 수정
 	@Override
 	public int updateReply(Reply reply) throws Exception {
 		return repository.updateReply(reply);
 	}
-	
+	// 댓글 삭제
 	@Override
 	public int deleteReply(Long rno) throws Exception {
 		return repository.deleteReply(rno);
 	}
+	
 
 }

@@ -23,7 +23,9 @@ public class Board {
 	private String content;
 	private String tag;
 	private Long viewCnt;
+	private int reply_count;
 	private String regDate;
+	
 
 }
 

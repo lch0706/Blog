@@ -42,8 +42,6 @@ public class RestMenuController {
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		
-		System.out.println("menu : " + menu.toString());
-		
 		try {
 			
 			service.insertMenu(menu);
