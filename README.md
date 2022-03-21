@@ -1,78 +1,46 @@
 ![header](https://capsule-render.vercel.app/api?type=waving&color=black&height=100&section=header&text=CRUD%20프로젝트&fontSize=21)
 > BootStrap을 활용한 CRUD 게시판 입니다.
 
-[![NPM Version][npm-image]][npm-url]
-[![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
 
-CRUD와 페이징 검색 기능등을 구현했으며    
-tiles를 사용해서 레이아웃을 구분했습니다.
 ![Blog Main](https://user-images.githubusercontent.com/94353223/159122471-a16c5f89-ee83-498f-8ed3-e89afd01ee02.png)
 
-## 라이브러리
+## 사용 기술
+* Java
+* MySQL
+* Spring freamwork
+* Jquery
+* Bootstrap
+* Git, Github
 
-OS X & 리눅스:
 
-```sh
-npm install my-crazy-module --save
-```
+## 구현된 기능
+_CRUD가 시행되는 게시판 구현_   
 
-윈도우:
+_게시글 조회시 댓글을 작성할 수 있는 페이지 구현_   
 
-```sh
-edit autoexec.bat
-```
+_404 에러페이지 구성_   
 
-## 사용 예제
+_페이징 및 검색을 통한 페이지 이동 구현_   
 
-스크린 샷과 코드 예제를 통해 사용 방법을 자세히 설명합니다.
+_게시글 조회시 조회수 올라가도록 구현했으며 쿠키를 통해서 조회수 중복증가 방지구현_   
 
-_더 많은 예제와 사용법은 [Wiki][wiki]를 참고하세요._
+_tiles를 통한 레이아웃을 구분_   
 
-## 개발 환경 설정
+_게시글 작성시 위지웍 에디터를 사용할 수 있도록 적용_   
 
-모든 개발 의존성 설치 방법과 자동 테스트 슈트 실행 방법을 운영체제 별로 작성합니다.
+_회원가입과 세션을 통한 로그인 로그아웃 구현_   
 
-```sh
-make install
-npm test
-```
 
-## 업데이트 내역
+## 향후 계획중인 기능들
 
-* 0.2.1
-    * 수정: 문서 업데이트 (모듈 코드 동일)
-* 0.2.0
-    * 수정: `setDefaultXYZ()` 메서드 제거
-    * 추가: `init()` 메서드 추가
-* 0.1.1
-    * 버그 수정: `baz()` 메서드 호출 시 부팅되지 않는 현상 (@컨트리뷰터 감사합니다!)
-* 0.1.0
-    * 첫 출시
-    * 수정: `foo()` 메서드 네이밍을 `bar()`로 수정
-* 0.0.1
-    * 작업 진행 중
+* 게시글 작성시 파일 업로드 기능   
+* 회원정보 및 탈퇴가 가능한 마이페이지
+* 게시글 제목 옆에 댓글 개수 표시
+* 비밀번호 암호화 복호화 
+
 
 ## 정보
 
-이름 – [@트위터 주소](https://twitter.com/dbader_org) – 이메일주소@example.com
+이름 – 이창환  
+이메일주소 - dlckdghks113@gmail.com   
 
-XYZ 라이센스를 준수하며 ``LICENSE``에서 자세한 정보를 확인할 수 있습니다.
-
-[https://github.com/yourname/github-link](https://github.com/dbader/)
-
-## 기여 방법
-
-1. (<https://github.com/yourname/yourproject/fork>)을 포크합니다.
-2. (`git checkout -b feature/fooBar`) 명령어로 새 브랜치를 만드세요.
-3. (`git commit -am 'Add some fooBar'`) 명령어로 커밋하세요.
-4. (`git push origin feature/fooBar`) 명령어로 브랜치에 푸시하세요. 
-5. 풀리퀘스트를 보내주세요.
-
-<!-- Markdown link & img dfn's -->
-[npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/datadog-metrics
-[npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
-[travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
-[wiki]: https://github.com/yourname/yourproject/wiki
